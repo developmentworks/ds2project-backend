@@ -1,4 +1,5 @@
 const express = require('express')
+const chalk = require('chalk')
 
 const app = express()
 
@@ -8,5 +9,5 @@ app.get('/', (req,res) => {
 })
 
 app.listen(3000,() =>{
-  console.log('backend running...')
+  console.log(chalk.green.bold('backend running...'))
 })
