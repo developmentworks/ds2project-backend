@@ -3,9 +3,15 @@ const chalk = require('chalk')
 
 const app = express()
 
+// requisição get
+app.get('/users', (req,res) => {
+  res.json(
+    {
+      name: "Marcio",
+      idade: 34,
+      cpf: "349183842384"
+    })
 
-app.get('/', (req,res) => {
-  res.send('Hello World!')
 })
 
 app.listen(3000,() =>{
