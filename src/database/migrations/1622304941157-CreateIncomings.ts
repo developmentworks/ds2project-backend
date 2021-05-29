@@ -1,9 +1,9 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class CreateExpenses1621806665009 implements MigrationInterface {
+export class CreateIncomings1621806665009 implements MigrationInterface {
  
   private table = new Table({
-    name: 'expenses',
+    name: 'incomings',
     columns:[
       {
         name: 'id',
@@ -34,7 +34,7 @@ export class CreateExpenses1621806665009 implements MigrationInterface {
         isNullable: false
       },
       {
-        name: 'expense_date',
+        name: 'incoming_date',
         type: 'date',
         isNullable: false
       },
@@ -51,8 +51,6 @@ export class CreateExpenses1621806665009 implements MigrationInterface {
     ]
 
   });
-
-  
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(this.table)
