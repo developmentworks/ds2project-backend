@@ -1,24 +1,25 @@
 import { Request, Response } from "express";
 import { getCustomRepository, getRepository } from "typeorm";
+import { Account } from "../models/Account";
 import { Expenses } from "../models/Expenses";
 import { User } from "../models/User";
 
 class ExpensesController {
 
   async createExpanse(req:Request,res:Response){
-    const {name,value,type, description, expenseDate,userId}= req.body
+    const {name,value,type, description, expenseDate,accountId}= req.body
 
     console.log(req.body)
-    const userRepository = getRepository(User)
     const expenseRepository = getRepository(Expenses)
+    const accountRepository = getRepository(Account)
 
     // verifica se existe um usuario com o id informado
-    const userAlreadyExists = await userRepository.findOne({
-      where:{id: userId}
+    const accountExists = await accountRepository.findOne({
+      where:{id: accountId}
     });
 
-    if(!userAlreadyExists){
-     return res.status(400).json({error:"user does not exists!"})
+    if(!accountExists){
+     return res.status(400).json({error:"account does not exists!"})
     }
 
     const expense =  expenseRepository.create({
@@ -27,7 +28,7 @@ class ExpensesController {
       description,
       type,
       expenseDate,
-      expenseUser:userAlreadyExists
+      account: accountExists
     })
     
     await expenseRepository.save(expense)
