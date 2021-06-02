@@ -1,24 +1,25 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
+import { Account } from "../models/Account";
 import { Incomings } from "../models/Incomings";
 import { User } from "../models/User";
 
 class IncomingController {
 
   async createIncoming(req:Request, res:Response){
-    const {name,value,type, description, incomingDate,userId}= req.body
+    const {name,value,type, description, incomingDate,accountId}= req.body
 
     console.log(req.body)
-    const userRepository = getRepository(User)
+    const accountRepository = getRepository(Account)
     const incomingRepository = getRepository(Incomings)
 
     // verifica se existe um usuario com o id informado
-    const userAlreadyExists = await userRepository.findOne({
-      where:{id: userId}
+    const accountExists = await accountRepository.findOne({
+      where:{id: accountId}
     });
 
-    if(!userAlreadyExists){
-     return res.status(400).json({error:"user does not exists!"})
+    if(!accountExists){
+     return res.status(400).json({error:"account does not exists!"})
     }
 
     const incoming =  incomingRepository.create({
@@ -27,7 +28,7 @@ class IncomingController {
       description,
       type,
       incomingDate,
-      incomingUser:userAlreadyExists
+      account:accountExists
     })
     
     await incomingRepository.save(incoming)

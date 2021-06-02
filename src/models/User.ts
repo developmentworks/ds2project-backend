@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Account } from "./Account";
 import { Expenses } from "./Expenses";
 import { Incomings } from "./Incomings";
 
@@ -18,10 +19,8 @@ class User{
   createdAt:Date
 
   // Relations
-  @OneToMany(() => Expenses,expense => expense.expenseUser,{eager:true})
-  expenses: Expenses[]
-
-  @OneToMany(() => Incomings, incoming => incoming.incomingUser,{eager:true})
-  incomings: Incomings[]
+  @OneToOne(() => Account, account=> account.user)
+  account: Account
+  
 }
 export {User}

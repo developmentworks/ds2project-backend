@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Account } from "./Account";
 import { User } from "./User";
 
 @Entity('expenses')
@@ -30,8 +31,8 @@ class Expenses{
   UpdatedAt:Date
 
   // Relations
-  @ManyToOne(() => User, user => user.expenses)
-  expenseUser: User
+  @ManyToOne(() => Account, account => account.expenses)
+  account: User
 
 }
 export {Expenses}

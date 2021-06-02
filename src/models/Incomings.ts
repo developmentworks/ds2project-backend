@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Account } from "./Account";
 import { User } from "./User";
 
 @Entity('incomings')
@@ -25,13 +26,12 @@ class Incomings{
   @CreateDateColumn({name:'created_at'})
   createdAt:Date
 
-   
   @CreateDateColumn({name:'Updated_at'})
   UpdatedAt:Date
 
   // Relations
-  @ManyToOne(() => User, user => user.incomings)
-  incomingUser: User
+  @ManyToOne(() => Account, account => account.incomings)
+  account: Account
 
 }
 export {Incomings}
