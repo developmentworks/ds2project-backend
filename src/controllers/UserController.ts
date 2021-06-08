@@ -6,7 +6,7 @@ import { User } from "../models/User";
 class UserController {
 
   async createUser(req:Request,res:Response){
-    const {name,email}= req.body
+    const {name,email,password}= req.body
 
     const userRepository = await getRepository(User)
 
@@ -20,7 +20,7 @@ class UserController {
     }
 
     const user = userRepository.create({
-      name, email
+      name, email, password
     })
 
     await userRepository.save(user)
