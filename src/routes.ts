@@ -18,14 +18,14 @@ const authController = new AuthController()
 routes.get('/users', authMiddleware, usersController.show)
 routes.post('/users', usersController.createUser)
 
-routes.get('/expenses', expenseController.show)
-routes.post('/expenses', expenseController.createExpanse)
+routes.get('/expenses', authMiddleware,expenseController.show, )
+routes.post('/expenses', authMiddleware, expenseController.createExpanse)
 
-routes.get('/incomings', incomingsController.show)
-routes.post('/incomings', incomingsController.createIncoming)
+routes.get('/incomings', authMiddleware,incomingsController.show)
+routes.post('/incomings', authMiddleware, incomingsController.createIncoming)
 
-routes.get('/accounts', accountController.showAccounts)
-routes.post('/accounts', accountController.createAccount)
+routes.get('/accounts', authMiddleware, accountController.showAccounts)
+routes.post('/accounts', authMiddleware,accountController.createAccount)
 
 routes.post('/auth', authController.authenticate)
 
